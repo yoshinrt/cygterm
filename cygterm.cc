@@ -977,7 +977,8 @@ int exec_shell(int* sh_pid)
         return -1;
     }
     int pid;
-    if ((pid = fork()) < 0) {
+    for(int i = 0; i < 10 && (pid = fork()) < 0; ++i);
+    if (pid < 0) {
         c_error("exec_shell: fork failed");
         return -1;
     }
